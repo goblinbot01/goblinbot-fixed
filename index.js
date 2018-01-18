@@ -29,7 +29,6 @@ if (!fs.existsSync("./userData/serverData.json")) {
 const Discord = require('discord.js');
 const client = new Discord.Client();
 // MusicBot Instances
-var YOUTUBE = "AIzaSyDMJT1cCy9FNt-0-mf5QiSbDf5RnuW59SU"
 const ytdl = require('ytdl-core');
 const request = require('request');
 const getYoutubeID = require('get-youtube-id');
@@ -53,8 +52,9 @@ function getId(str, cb) {
   }
 }
 function search_video(query, callback) {
-  request("https://googleapis.com/youtube/v3/search?part=id&type=video&q=" + encodeURIComponent(query) + "&key=" + YOUTUBE, function(error) {
+  request("https://googleapis.com/youtube/v3/search?part=id&type=video&q=" + encodeURIComponent(query) + "&key=" + process.env.YOUTUBE, function(error) {
     var json = JSON.parse(body);
+    callback(json.items[0],id.videoId)
   })
 }
 // Misc
